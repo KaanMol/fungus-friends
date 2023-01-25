@@ -8538,6 +8538,11 @@ tr46@^2.1.0:
   dependencies:
     punycode "^2.1.1"
 
+transition-hook@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/transition-hook/-/transition-hook-1.5.2.tgz#2af407a2bfa7fc84dec0b19af5ccd5fc88408e38"
+  integrity sha512-zVW5wP+hzOCk56jU5V5GAIsuaf+gZv43pzxyimXQ74JnD1yoprxTfzoPjr0yjC/Mrc9JyCh3Wb6UhXD+8dlO4w==
+
 tryer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
