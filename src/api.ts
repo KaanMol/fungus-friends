@@ -156,7 +156,7 @@ const mushrooms: Mushroom[] = [
     },
 ]
 
-export default (): Promise<Mushroom[]> => {
+const api = (): Promise<Mushroom[]> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(mushrooms)
@@ -164,6 +164,8 @@ export default (): Promise<Mushroom[]> => {
     })
 
 }
+
+export default api;
 
 // name: 'objective black',
 // name: 'practical curran',
