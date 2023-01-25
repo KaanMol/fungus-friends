@@ -18,7 +18,7 @@ function App() {
 			setMushroomState(mushrooms);
 			setResourcesFetchedState(true);
 		});
-	}, []);
+	}, [setMushroomState]);
 
 	return (
 		<>
