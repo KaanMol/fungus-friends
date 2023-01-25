@@ -50,9 +50,14 @@
 		width: 300px;
 		height: min-content;
 		border-radius: 6px;
+
+		div.topbar {
+			padding: unset !important;
+		}
 	}
 
 	div.topbar {
+		padding: 15px 15px 0 15px;
 		display: grid;
 		grid-template-columns: 1fr min-content;
 		grid-template-rows: 1fr;
@@ -69,7 +74,7 @@
 	div.filters {
 		display: grid;
 		gap: 20px;
-		margin: 20px;
+		margin: 30px;
 	}
 }
 
