@@ -1,43 +1,46 @@
 name: CI/CD
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [19.x]
 
-    strategy:
-      matrix:
-        node-version: [19.x]
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+            - name: Set up Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+            - name: Run install
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: install # will run `yarn install` command
 
-    - name: Install dependencies
-      run: npm install
+            - name: Build production bundle
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: build # will run `yarn build:prod` command
 
-    - name: Build
-      run: npm run build
-
-    - name: Deploy
-      run: |
-        git config --global user.name $user_name
-        git config --global user.email $user_email
-        git remote set-url origin https://${github_token}@github.com/${repository}
-        npm run deploy
-      env:
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-        github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-        repository: ${{ github.repository }}
+            - name: Deploy
+              run: |
+                  git config --global user.name $user_name
+                  git config --global user.email $user_email
+                  git remote set-url origin https://${github_token}@github.com/${repository}
+                  npm run deploy
+              env:
+                  user_name: "github-actions[bot]"
+                  user_email: "github-actions[bot]@users.noreply.github.com"
+                  github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+                  repository: ${{ github.repository }}
