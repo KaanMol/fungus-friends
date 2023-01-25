@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.scss";
+import api from "./api";
+
+import { useRecoilState } from "recoil";
+import { Map } from "./components/Map";
+import { mushroomSelector } from "./state/mushrooms";
+import { Filter } from "./components/Filter";
+import { CenterMessage } from "./components/CenterMessage";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [mushroomState, setMushroomState] = useRecoilState(mushroomSelector);
+	const [resourcesFetched, setResourcesFetchedState] = useState(false);
+
+	// Fetch resource on mount and store in recoil
+	useEffect(() => {
+		api().then((mushrooms) => {
+			setMushroomState(mushrooms);
+			setResourcesFetchedState(true);
+		});
+	}, []);
+
+	return (
+		<>
+			{/* Loading indicator */}
+			<CenterMessage
+				showIf={resourcesFetched === false}
+				message="Loading resources..."
+			/>
+
+			{/* Message when combination of filters returns no mushrooms */}
+			<CenterMessage
+				showIf={mushroomState.length === 0 && resourcesFetched}
+				message="Filter didn't return mushrooms"
+			/>
+
+			{/* Filter sidebar */}
+			<Filter />
+
+			{/* Tilemap */}
+			<Map markers={mushroomState} />
+		</>
+	);
 }
 
 export default App;
