@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { Mushroom } from "../api";
+import { Mushroom } from "../utils/api";
 import { mushroomColorFilterState, mushroomSpotsFilterState } from "./filter";
 
 export const mushroomAtom = atom({
@@ -25,9 +25,11 @@ export const mushroomSelector = selector({
         return mushroomList.filter(mushroom => {
             if (hasColorFilters && hasSpotsFilters) {
                 return colorFilter.includes(mushroom.color) && spotsFilter.includes(mushroom.spots);
-            } else if (hasColorFilters && hasSpotsFilters === false) {
+            }
+            else if (hasColorFilters && hasSpotsFilters === false) {
                 return colorFilter.includes(mushroom.color);
-            } else {
+            }
+            else {
                 return spotsFilter.includes(mushroom.spots)
             }
 

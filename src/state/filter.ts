@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Color as MushroomColor, Spots as MushroomSpots } from "../api";
+import { Color as MushroomColor, Spots as MushroomSpots } from "../utils/api";
 
 export const mushroomColorFilterState = atom({
     key: 'mushroomColorFilterState',

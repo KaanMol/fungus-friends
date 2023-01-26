@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { useTransition } from "transition-hook";
-import { Color as MushroomColor, Spots as MushroomSpots } from "../api";
 import {
 	mushroomColorFilterState,
 	mushroomSpotsFilterState,
 } from "../state/filter";
 import { MutliSelector } from "./MultiSelector";
+import { colorFilterInput, spotsFilterInput } from "../utils/multiselect";
 
 function Sidebar(props: { style: React.CSSProperties; close: () => void }) {
 	const [colorState, setColorState] = useRecoilState(
@@ -59,22 +59,7 @@ function Sidebar(props: { style: React.CSSProperties; close: () => void }) {
 					name="color"
 					label="Filter by color"
 					onChange={onColorFilterChange}
-					inputs={Object.keys(MushroomColor)
-						.filter((x) => !(parseInt(x) >= 0))
-						.map((color) => {
-							return {
-								title:
-									color[0] + color.toLowerCase().substring(1),
-								value: MushroomColor[
-									color as keyof typeof MushroomColor
-								],
-								checked: colorState.includes(
-									MushroomColor[
-										color as keyof typeof MushroomColor
-									]
-								),
-							};
-						})}
+					inputs={colorFilterInput(colorState)}
 					onClear={() => setColorState([])}
 					showClear={colorState.length > 0}
 				/>
@@ -83,23 +68,7 @@ function Sidebar(props: { style: React.CSSProperties; close: () => void }) {
 					name="spots"
 					label="Filter by spots"
 					onChange={onSpotsFilterChange}
-					inputs={Object.keys(MushroomSpots)
-						.filter((x) => !(parseInt(x) >= 0))
-						.map((spots) => {
-							return {
-								title:
-									spots[0].toUpperCase() +
-									spots.toLowerCase().substring(1),
-								value: MushroomSpots[
-									spots as keyof typeof MushroomSpots
-								],
-								checked: spotsState.includes(
-									MushroomSpots[
-										spots as keyof typeof MushroomSpots
-									]
-								),
-							};
-						})}
+					inputs={spotsFilterInput(spotsState)}
 					onClear={() => setSpotsState([])}
 					showClear={spotsState.length > 0}
 				/>

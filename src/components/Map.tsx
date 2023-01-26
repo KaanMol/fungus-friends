@@ -5,7 +5,7 @@ import {
 	Color as MushroomColor,
 	Mushroom,
 	Spots as MushroomSpots,
-} from "../api";
+} from "../utils/api";
 
 export function Map(props: { markers: Mushroom[] }) {
 	return (

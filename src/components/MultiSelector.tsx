@@ -10,6 +10,7 @@ export function MutliSelector(props: {
 		<div className="multi-selector">
 			<div className="top">
 				<div className="title">{props.label}</div>
+
 				{props.showClear && (
 					<button onClick={props.onClear}>Clear</button>
 				)}

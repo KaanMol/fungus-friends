@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
-import api from "./api";
+import api from "./utils/api";
 
 import { useRecoilState } from "recoil";
 import { Map } from "./components/Map";
@@ -10,6 +10,7 @@ import { CenterMessage } from "./components/CenterMessage";
 
 function App() {
 	const [mushroomState, setMushroomState] = useRecoilState(mushroomSelector);
+	// Is used for the loading message
 	const [resourcesFetched, setResourcesFetchedState] = useState(false);
 
 	// Fetch resource on mount and store in recoil
